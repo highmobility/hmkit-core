@@ -9,7 +9,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: Go to unit test
+      run: cd unit_test
     - name: Compile unit test's
-      run: unit_test/make
+      run: make
     - name: Run unit test's
-      run: unit_test/hmservice
+      run: ./hmservice
