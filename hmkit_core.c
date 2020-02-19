@@ -692,7 +692,14 @@ uint32_t hmkit_core_set_mtu(uint8_t *mac, uint16_t mtu)
 
   if(p_client != NULL)
   {
-    p_client->mtu = mtu - 3; // 3 bytes for header
+      if(mtu == DEFAULT_BLE_MTU)
+      {
+          p_client->mtu = mtu; // if it is default 20, no need for 3 bytes deduction
+      }
+      else
+      {
+          p_client->mtu = mtu - 3; // 3 bytes for header
+      }
   }
   else
   {
@@ -2680,16 +2687,23 @@ connected_beacons_t * p_client = getBeaconId(mac);
         hmkit_core_log_data(p_client->device.mac,p_client->device.serial_number,HMKIT_CORE_LOG_DEBUG,data,size,"[HMSensing] Store info char");
         memcpy(p_client->device.info_string,data,size);
 
-	// MTU Parsing
+	    // MTU Parsing
         mtu = parse_MTU_value(data, size);
         if(mtu > 0)
         {
-           p_client->mtu = mtu - 3; // 3 header
+            if(mtu != DEFAULT_BLE_MTU)
+            {
+                p_client->mtu = mtu - 3; // 3 header
+            }
+            else
+            {
+                p_client->mtu = mtu; // no 3 bytes deduction for default (20)
+            }
         }
       	else
-	      {
+        {
 	        p_client->mtu = DEFAULT_BLE_MTU;
-	      }
+        }
     }else{
        //TODO ERROR
     }
