@@ -679,35 +679,38 @@ uint32_t client_handling_set_authorised(connected_beacons_t * p_client, uint8_t 
 
 /**@brief Function for setting MTU for BT chunk data size
  * (API to be called in the Link side)
+ * @return: >0 (effective mtu value used by Core),
+ * 	    0 for Error
  */
 uint32_t hmkit_core_set_mtu(uint8_t *mac, uint16_t mtu)
 {
   connected_beacons_t *p_client = getBeaconId(mac);
+  uint16_t effective_mtu = mtu;
 
   if(mtu > MAX_BLE_MTU)
   {
-    hmkit_core_log(NULL,NULL,HMKIT_CORE_LOG_ERROR,"[HMCore] invald mtu size %d, max possible = %d", mtu, MAX_BLE_MTU);
-    return 1;
+    hmkit_core_log(NULL,NULL,HMKIT_CORE_LOG_INFO,"[HMCore] higher mtu size %d, force it to max  = %d", mtu, MAX_BLE_MTU);
+    effective_mtu = MAX_BLE_MTU;
   }
 
   if(p_client != NULL)
   {
-      if(mtu == DEFAULT_BLE_MTU)
+      if(effective_mtu == DEFAULT_BLE_MTU)
       {
-          p_client->mtu = mtu; // if it is default 20, no need for 3 bytes deduction
+          p_client->mtu = effective_mtu; // if it is default 20, no need for 3 bytes deduction
       }
       else
       {
-          p_client->mtu = mtu - 3; // 3 bytes for header
+          p_client->mtu = effective_mtu - 3; // 3 bytes for header
       }
   }
   else
-  {
+  {   // Error Case
       hmkit_core_log(NULL,NULL,HMKIT_CORE_LOG_ERROR,"[HMCore] connection not created yet, client not found");
-      return 1;
+      return 0;
   }
 
-  return 0;
+  return effective_mtu;
 }
 
 /**@brief Function for creating a new client.
