@@ -39,9 +39,10 @@ void hmkit_core_api_callback_exited_proximity(uint64_t appContxtId, hmkit_core_d
     BTUNUSED(appContxtId);
 }
 
-void hmkit_core_api_callback_command_incoming(uint64_t appContxtId, hmkit_core_device_t *device, uint8_t *data, uint32_t length, uint8_t *respID, uint16_t respID_size, uint8_t version)
+void hmkit_core_api_callback_command_incoming(uint64_t appContxtId, hmkit_core_device_t *device, uint8_t content_type, uint8_t *data, uint32_t length, uint8_t *respID, uint16_t respID_size, uint8_t version)
 {
     BTUNUSED(device);
+    BTUNUSED(content_type);
     BTUNUSED(data);
     BTUNUSED(length);
     BTUNUSED(appContxtId);
@@ -55,8 +56,9 @@ void hmkit_core_api_callback_error_command_incoming(uint64_t appContxtId, hmkit_
     BTUNUSED(appContxtId);
 }
 
-void hmkit_core_api_callback_command_response(uint64_t appContxtId, hmkit_core_device_t *device, uint8_t *data, uint16_t length, uint8_t *reqID, uint16_t reqID_size, uint8_t version){
+void hmkit_core_api_callback_command_response(uint64_t appContxtId, hmkit_core_device_t *device, uint8_t content_type, uint8_t *data, uint32_t length, uint8_t *respID, uint16_t respID_size, uint8_t version){
     BTUNUSED(device);
+    BTUNUSED(content_type);
     BTUNUSED(data);
     BTUNUSED(length);
     BTUNUSED(appContxtId);
@@ -89,9 +91,10 @@ uint32_t hmkit_core_api_callback_pairing_requested(uint64_t appContxtId, hmkit_c
     return 0;
 }
 
-void hmkit_core_api_callback_telematics_command_incoming(uint64_t appContxtId, hmkit_core_device_t *device, uint8_t id, uint32_t length, uint8_t *data, uint8_t *reqID, uint16_t reqID_size, uint8_t version){
+void hmkit_core_api_callback_telematics_command_incoming(uint64_t appContxtId, hmkit_core_device_t *device, uint8_t id, uint8_t content_type, uint32_t length, uint8_t *data, uint8_t *respID, uint16_t respID_size, uint8_t version){
     BTUNUSED(device);
     BTUNUSED(id);
+    BTUNUSED(content_type);
     BTUNUSED(length);
     BTUNUSED(data);
     BTUNUSED(appContxtId);
