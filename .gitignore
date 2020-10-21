@@ -1,0 +1,6 @@
+#NDK
+obj
+.externalNativeBuild
+*.so
+*.o
+*.o.d
