@@ -32,7 +32,7 @@ HMKit Core is pure C code that follow C99.
 
 ## Getting Started
 
-Get started with HMKIT Core [📘 browse the documentation](https://high-mobility.com/learn/tutorials/for-carmakers/car-sdk/tutorial/).
+Get started with HMKIT Core [📘 browse the wiki](https://github.com/highmobility/hmkit-core/wiki).
 
 ## Contributing
 
